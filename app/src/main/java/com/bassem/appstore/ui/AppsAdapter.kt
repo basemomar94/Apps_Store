@@ -4,11 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bassem.appstore.data.models.Details
+import com.bassem.appstore.data.models.AppsDetails
 import com.bassem.appstore.databinding.ItemAppBinding
 import com.bumptech.glide.Glide
 
-class AppsAdapter(val context: Context,val appsList: List<Details>, val onClick: OnClick) :
+class AppsAdapter(val context: Context, val appsList: List<AppsDetails>, val onClick: OnClick) :
     RecyclerView.Adapter<AppsAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemAppBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,7 +23,7 @@ class AppsAdapter(val context: Context,val appsList: List<Details>, val onClick:
         val app = appsList[position]
         holder.binding.apply {
             appName.text = app.name
-            Glide.with(context).load(app.graphic).into(appImage)
+            Glide.with(context).load(app.icon).into(appImage)
 
             appImage.setOnClickListener {
                 onClick.onAppClick(app, position)
@@ -32,7 +32,7 @@ class AppsAdapter(val context: Context,val appsList: List<Details>, val onClick:
     }
 
     interface OnClick {
-        fun onAppClick(details: Details, position: Int)
+        fun onAppClick(appsDetails: AppsDetails, position: Int)
 
     }
 }

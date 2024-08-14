@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bassem.appstore.data.models.Details
+import com.bassem.appstore.R
+import com.bassem.appstore.data.models.AppsDetails
 import com.bassem.appstore.databinding.FragmentHomeBinding
+import com.bassem.appstore.utilities.AppConstants.APP_BUNDLE
 import com.bassem.appstore.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,7 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppsAdapter.OnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         collectAppsList()
-        Log.v("Home","on home")
+        Log.v("Home", "on home")
     }
 
     private fun collectAppsList() = lifecycleScope.launch {
@@ -39,8 +41,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppsAdapter.OnClick {
         }
     }
 
-    private fun populateMainRv(apps: List<Details>) {
-        mainAppsAdapter = AppsAdapter(requireContext(),apps, this)
+    private fun populateMainRv(apps: List<AppsDetails>) {
+        mainAppsAdapter = AppsAdapter(requireContext(), apps, this)
         binding.allAppsRv.apply {
             adapter = mainAppsAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -48,7 +50,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppsAdapter.OnClick {
         }
     }
 
-    override fun onAppClick(details: Details, position: Int) {
+    override fun onAppClick(appsDetails: AppsDetails, position: Int) {
+        val appBundle = Bundle()
+        appBundle.putParcelable(APP_BUNDLE, appsDetails)
+        findNavController().navigate(R.id.action_home_to_detailsFragment,appBundle)
 
     }
 }
