@@ -2,4 +2,5 @@
     <string name="app_name">App Store</string>
     <string name="default_notification_channel_id">5</string>
     <string name="default_notification_channel_name">new apps channel\n</string>
+    <string name="app_image">app image</string>
 </resources>
