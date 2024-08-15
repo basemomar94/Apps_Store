@@ -3,33 +3,35 @@ package com.bassem.appstore.data.models
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity("apps")
 data class AppsDetails(
-    val added: String?,
-    val apk_tags: List<String>?,
-    val downloads: Int?,
-    val graphic: String?,
-    val icon: String?,
-    val id: Int?,
-    val md5sum: String?,
-    val modified: String?,
-    val name: String?,
-    val `package`: String?,
-    val pdownloads: Int?,
-    val rating: Double?,
-    val size: Int?,
-    val store_id: Int?,
-    val store_name: String?,
-    val updated: String?,
-    val uptype: String?,
-    val vercode: Int?,
-    val vername: String?,
+    @PrimaryKey(autoGenerate = true)
+    val keyId:Int,
+    val added: String?="",
+    val downloads: Int?=0,
+    val graphic: String?="",
+    val icon: String?="",
+    val id: Int?=0,
+    val md5sum: String?="",
+    val modified: String?="",
+    val name: String?="",
+    val `package`: String?="",
+    val pdownloads: Int?=0,
+    val rating: Double?=0.0,
+    val size: Int?=0,
+    val store_id: Int?=0,
+    val store_name: String?="",
+    val updated: String?="",
+    val uptype: String?="",
+    val vercode: Int?=0,
+    val vername: String?="",
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readInt()?:0,
         parcel.readString() ?: "",
-        parcel.createStringArrayList() ?: emptyList(),
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -51,7 +53,6 @@ data class AppsDetails(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(added)
-        parcel.writeStringList(apk_tags)
         parcel.writeInt(downloads ?: -1)
         parcel.writeString(graphic)
         parcel.writeString(icon)

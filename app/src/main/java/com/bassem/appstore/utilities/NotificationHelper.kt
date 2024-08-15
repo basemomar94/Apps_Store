@@ -7,6 +7,8 @@ import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bassem.appstore.R
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 
 fun Context.createNotificationChannel() {
     val channelId = getString(R.string.default_notification_channel_id)
@@ -33,7 +35,7 @@ fun Context.sendBackgroundNotification() {
         this,
         getString(R.string.default_notification_channel_id)
     )
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.notification_circle_svgrepo_com)
         .setContentTitle("App Store")
         .setOnlyAlertOnce(true)
         .setOngoing(false)
@@ -42,4 +44,17 @@ fun Context.sendBackgroundNotification() {
         .build()
     val notificationManger = NotificationManagerCompat.from(this)
     notificationManger.notify(5, notification)
+}
+
+
+fun Context.hasNotificationPermission(): Boolean {
+    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+        ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    } else {
+        // For Android 12 and below, notification permission is granted by default
+        true
+    }
 }

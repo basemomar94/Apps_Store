@@ -14,7 +14,6 @@ import com.bassem.appstore.workers.NewAppsWorker
 import java.util.concurrent.TimeUnit
 
 
-
 fun Context.scheduleHourlyWork() {
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)

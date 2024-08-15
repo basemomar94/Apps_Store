@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), AppsAdapter.OnClick {
     }
 
     private fun collectAppsList() = lifecycleScope.launch {
-        viewModel.getApps().collect { appsList ->
+        viewModel.appsFlow.collect { appsList ->
             populateMainRv(appsList)
         }
     }

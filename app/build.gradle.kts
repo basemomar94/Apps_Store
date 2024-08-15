@@ -71,6 +71,15 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     testImplementation(libs.junit)
     implementation(libs.glide)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation (libs.mockk)
+    androidTestImplementation (libs.mockk.android)
+    testImplementation (libs.turbine)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
+
+
+
 
 
 }
